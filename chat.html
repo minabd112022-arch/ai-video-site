@@ -17,9 +17,7 @@ async function sendMessage() {
   const input = document.getElementById("message");
   const message = input.value;
 
-  console.log("message:", message); // للتأكد
-
-  const res = await fetch("/chat", {
+  const res = await fetch("/api/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -28,8 +26,6 @@ async function sendMessage() {
   });
 
   const data = await res.json();
-
-  console.log(data); // للتأكد
 
   document.getElementById("response").innerText = data.reply;
 }

@@ -1,18 +1,23 @@
-import OpenAI from "openai";
+export default function handler(req, res) {
 
-export default async function handler(req, res) {
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
+  if (req.method === "GET") {
+    return res.status(200).json({ reply: "API شغال ✅" });
+  }
 
-  const { message } = req.body;
+  if (req.method !== "POST") {
+    return res.status(405).json({ reply: "Method Not Allowed" });
+  }
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [{ role: "user", content: message }],
-  });
+  try {
+    const { message } = req.body || {};
 
-  res.status(200).json({
-    reply: response.choices[0].message.content,
-  });
+    return res.status(200).json({
+      reply: "🤖 رد تجريبي: " + (message || "فارغ")
+    });
+
+  } catch (error) {
+return res.status(500).json({
+      reply: "❌ حدث خطأ"
+    });
+  }
 }

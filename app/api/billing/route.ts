@@ -4,12 +4,12 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20",
+  apiVersion: "2026-04-22.dahlia",
 });
 
 export async function POST() {
   try {
-    const { userId } = await await auth();
+    const { userId } = await auth();
 
     if (!userId) {
       return NextResponse.json(
@@ -44,6 +44,7 @@ export async function POST() {
     return NextResponse.json({
       url: portalSession.url,
     });
+
   } catch (error) {
     console.error("Billing portal error:", error);
 
